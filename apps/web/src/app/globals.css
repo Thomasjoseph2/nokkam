@@ -1,0 +1,70 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens. Components use these semantic names (bg-canvas, text-ink, bg-brand-600, ...)
+ * rather than raw palette values, so the brand can evolve in one place.
+ */
+@theme {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand: deep leaf green (trust, local, fresh) */
+  --color-brand-50: #ecfaf4;
+  --color-brand-100: #d1f2e3;
+  --color-brand-200: #a6e4ca;
+  --color-brand-300: #6fceab;
+  --color-brand-400: #3bb38a;
+  --color-brand-500: #1a9771;
+  --color-brand-600: #0f7a5c;
+  --color-brand-700: #0d614b;
+  --color-brand-800: #0d4d3d;
+  --color-brand-900: #0b3f33;
+
+  /* Accent: warm saffron for offers & deals */
+  --color-accent-50: #fff6ed;
+  --color-accent-100: #ffead4;
+  --color-accent-400: #ff9a4d;
+  --color-accent-500: #ff7a1a;
+  --color-accent-600: #e65f00;
+  --color-accent-700: #bf4b02;
+
+  /* Neutrals */
+  --color-canvas: #faf8f4;
+  --color-surface: #ffffff;
+  --color-line: #e8e3da;
+  --color-ink: #13201b;
+  --color-ink-soft: #3a4843;
+  --color-muted: #66746e;
+
+  /* Feedback */
+  --color-danger-50: #fef2f2;
+  --color-danger-600: #c62828;
+  --color-success-50: #ecfdf3;
+  --color-success-700: #05603a;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 2px rgb(19 32 27 / 0.04), 0 8px 24px -12px rgb(19 32 27 / 0.12);
+
+  /* Extra-small breakpoint for compact phones (Tailwind's sm starts at 40rem). */
+  --breakpoint-xs: 23rem;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-canvas text-ink antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

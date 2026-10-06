@@ -1,0 +1,7 @@
+packages:
+  - apps/*
+  - packages/*
+allowBuilds:
+  '@swc/core': true
+  mongodb-memory-server: false
+  unrs-resolver: true
