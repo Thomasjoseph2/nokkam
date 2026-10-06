@@ -22,7 +22,7 @@ export class AppConfig {
   readonly email: {
     transport: Env['EMAIL_TRANSPORT'];
     from: string;
-    smtp: { host: string; port: number };
+    smtp: { host: string; port: number; secure: boolean; user?: string; password?: string };
   };
 
   constructor(env: Env) {
@@ -43,7 +43,13 @@ export class AppConfig {
     this.email = {
       transport: env.EMAIL_TRANSPORT,
       from: env.EMAIL_FROM,
-      smtp: { host: env.SMTP_HOST, port: env.SMTP_PORT },
+      smtp: {
+        host: env.SMTP_HOST,
+        port: env.SMTP_PORT,
+        secure: env.SMTP_SECURE,
+        user: env.SMTP_USER || undefined,
+        password: env.SMTP_PASSWORD || undefined,
+      },
     };
     Object.freeze(this);
   }

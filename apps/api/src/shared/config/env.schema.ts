@@ -31,9 +31,20 @@ export const envSchema = z
     EMAIL_FROM: z.string().default('Nokkam <no-reply@nokkam.local>'),
     SMTP_HOST: z.string().default('localhost'),
     SMTP_PORT: z.coerce.number().int().positive().default(1025),
+    // true = implicit TLS (port 465). false = plain/STARTTLS (587 upgrades automatically, 1025 Mailpit).
+    SMTP_SECURE: bool,
+    SMTP_USER: z.string().optional(),
+    SMTP_PASSWORD: z.string().optional(),
     WEB_URL: z.url().default('http://localhost:3000'),
   })
   .superRefine((env, ctx) => {
+    if (Boolean(env.SMTP_USER) !== Boolean(env.SMTP_PASSWORD)) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['SMTP_PASSWORD'],
+        message: 'Set both SMTP_USER and SMTP_PASSWORD, or neither',
+      });
+    }
     if (env.NODE_ENV === 'production') {
       if (!env.COOKIE_SECURE) {
         ctx.addIssue({

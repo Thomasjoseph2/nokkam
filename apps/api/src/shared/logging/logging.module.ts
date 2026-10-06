@@ -46,6 +46,8 @@ const REQUEST_ID_PATTERN = /^[A-Za-z0-9._-]{8,128}$/;
               method: req.method,
               url: req.url,
             }),
+            // Status only: response headers (CSP, rate-limit, etc.) are noise in every log line.
+            res: (res: { statusCode: number }) => ({ statusCode: res.statusCode }),
           },
           autoLogging: {
             ignore: (req: IncomingMessage) => req.url?.endsWith('/health') ?? false,
