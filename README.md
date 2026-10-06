@@ -47,9 +47,8 @@ pnpm dev
 | API                                      | http://localhost:4000/api/v1 (health: `/api/v1/health`) |
 | Mailpit (only if `EMAIL_TRANSPORT=smtp`) | http://localhost:8025                                   |
 
-**Ports already in use?** Change `PORT` (API) in `.env`, and run the web app on another port:
-`pnpm --filter @nokkam/web exec next dev --port 3100`. Then set `WEB_URL`/`CORS_ORIGINS` to the new web URL and
-`API_URL` to the new API URL.
+**Ports already in use?** Edit `.env`: `WEB_PORT` for the web app (then set `WEB_URL` and `CORS_ORIGINS` to
+`http://localhost:<WEB_PORT>`), `PORT` for the API (then set `API_URL` to match). Restart `pnpm dev`.
 
 > `API_URL` and `WEB_URL` are read by Next.js **at build time** for the `/api` proxy, sitemap and robots.txt.
 > After changing them, restart `next dev` or re-run `next build`.
