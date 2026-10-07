@@ -17,8 +17,10 @@ export default async function DashboardLayout({ children }: { children: ReactNod
   if (!user) redirect('/login?next=/dashboard');
 
   return (
-    <div className="min-h-dvh pb-20 sm:pb-0">
-      <header className="sticky top-0 z-20 border-b border-line/70 bg-canvas/90 backdrop-blur">
+    <div className="relative isolate min-h-dvh pb-20 sm:pb-0">
+      {/* Gentle mint wash at the top so the workspace feels fresh, not flat. */}
+      <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-80 bg-aurora opacity-70" />
+      <header className="glass sticky top-0 z-20 border-b border-brand-100/80">
         <Container className="flex h-16 items-center justify-between gap-4">
           <Logo href="/dashboard" />
           <DashboardNav items={navItemsFor(user)} />

@@ -3,37 +3,63 @@
 /*
  * Design tokens. Components use these semantic names (bg-canvas, text-ink, bg-brand-600, ...)
  * rather than raw palette values, so the brand can evolve in one place.
+ *
+ * Colour system (60 / 30 / 10):
+ *   60%  green-tinted neutrals: calm, fresh canvas that never feels sterile.
+ *   30%  brand emerald -> lagoon teal: growth & freshness flowing into trust & calm.
+ *        Analogous hues, so gradients read as harmonious rather than loud.
+ *   10%  saffron accent: near-complement of green, warm and appetising. Reserved for offers
+ *        and the single most important call to action so it always draws the eye.
+ *   Sprout lime is a tiny highlight for "new" moments (badges, glows), never for text on white.
+ *
+ * All text/background pairs used in components meet WCAG AA (>= 4.5:1).
  */
 @theme {
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand: deep leaf green (trust, local, fresh) */
-  --color-brand-50: #ecfaf4;
-  --color-brand-100: #d1f2e3;
-  --color-brand-200: #a6e4ca;
-  --color-brand-300: #6fceab;
-  --color-brand-400: #3bb38a;
-  --color-brand-500: #1a9771;
-  --color-brand-600: #0f7a5c;
-  --color-brand-700: #0d614b;
-  --color-brand-800: #0d4d3d;
-  --color-brand-900: #0b3f33;
+  /* Brand: emerald (growth, freshness, "go") */
+  --color-brand-50: #edfcf5;
+  --color-brand-100: #d3f8e6;
+  --color-brand-200: #aaf0d1;
+  --color-brand-300: #72e2b6;
+  --color-brand-400: #3acb96;
+  --color-brand-500: #16b07e;
+  --color-brand-600: #08865f;
+  --color-brand-700: #0a7254;
+  --color-brand-800: #0c5a45;
+  --color-brand-900: #0b4a3a;
+  --color-brand-950: #042a21;
+
+  /* Lagoon: teal (trust, calm, clarity) */
+  --color-lagoon-100: #ccfbf1;
+  --color-lagoon-300: #5eead4;
+  --color-lagoon-400: #2dd4bf;
+  --color-lagoon-500: #14b8a6;
+  --color-lagoon-600: #0d9488;
+  --color-lagoon-700: #0f766e;
+  --color-lagoon-900: #134e4a;
+
+  /* Sprout: lime (energy, newness), decorative only */
+  --color-sprout-200: #d9f99d;
+  --color-sprout-300: #bef264;
+  --color-sprout-400: #a3e635;
 
   /* Accent: warm saffron for offers & deals */
   --color-accent-50: #fff6ed;
   --color-accent-100: #ffead4;
+  --color-accent-200: #ffd0a8;
   --color-accent-400: #ff9a4d;
   --color-accent-500: #ff7a1a;
-  --color-accent-600: #e65f00;
-  --color-accent-700: #bf4b02;
+  --color-accent-600: #c94a04;
+  --color-accent-700: #a83c05;
 
-  /* Neutrals */
-  --color-canvas: #faf8f4;
+  /* Neutrals, tinted toward green for harmony */
+  --color-canvas: #f6faf7;
   --color-surface: #ffffff;
-  --color-line: #e8e3da;
-  --color-ink: #13201b;
-  --color-ink-soft: #3a4843;
-  --color-muted: #66746e;
+  --color-line: #dde9e2;
+  --color-ink: #0d1f19;
+  --color-ink-soft: #33463f;
+  --color-muted: #5e7069;
 
   /* Feedback */
   --color-danger-50: #fef2f2;
@@ -41,19 +67,126 @@
   --color-success-50: #ecfdf3;
   --color-success-700: #05603a;
 
-  --radius-card: 1.25rem;
-  --shadow-card: 0 1px 2px rgb(19 32 27 / 0.04), 0 8px 24px -12px rgb(19 32 27 / 0.12);
+  --radius-card: 1.5rem;
+  /* Shadows are tinted with brand green so elevation feels part of the palette. */
+  --shadow-card: 0 1px 2px rgb(12 90 69 / 0.05), 0 12px 32px -16px rgb(12 90 69 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(12 90 69 / 0.06), 0 24px 48px -20px rgb(12 90 69 / 0.28);
+  --shadow-glow: 0 10px 30px -10px rgb(22 176 126 / 0.55);
+  --shadow-glow-accent: 0 10px 30px -10px rgb(255 122 26 / 0.55);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-blob: blob 18s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 
   /* Extra-small breakpoint for compact phones (Tailwind's sm starts at 40rem). */
   --breakpoint-xs: 23rem;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  @keyframes blob {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(4%, -6%) scale(1.08);
+    }
+    66% {
+      transform: translate(-5%, 4%) scale(0.95);
+    }
+  }
+  @keyframes pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 rgb(22 176 126 / 0.5);
+    }
+    80%,
+    100% {
+      box-shadow: 0 0 0 10px rgb(22 176 126 / 0);
+    }
+  }
+}
+
+/* Signature gradients. */
+@utility bg-gradient-brand {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-brand-600) 0%,
+    var(--color-lagoon-700) 100%
+  );
+}
+@utility bg-gradient-brand-soft {
+  background-image: linear-gradient(135deg, var(--color-brand-50) 0%, var(--color-lagoon-100) 100%);
+}
+@utility bg-gradient-deep {
+  background-image:
+    radial-gradient(60% 80% at 100% 0%, rgb(45 212 191 / 0.28) 0%, transparent 60%),
+    radial-gradient(50% 70% at 0% 100%, rgb(163 230 53 / 0.18) 0%, transparent 60%),
+    linear-gradient(150deg, var(--color-brand-800) 0%, var(--color-brand-950) 100%);
+}
+@utility bg-gradient-accent {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-accent-600) 0%,
+    var(--color-accent-700) 100%
+  );
+}
+@utility text-gradient-brand {
+  background-image: linear-gradient(
+    120deg,
+    var(--color-brand-600) 0%,
+    var(--color-lagoon-600) 55%,
+    var(--color-brand-500) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+/* Soft mint aurora used behind heroes. */
+@utility bg-aurora {
+  background-image:
+    radial-gradient(40% 50% at 15% 10%, rgb(170 240 209 / 0.7) 0%, transparent 70%),
+    radial-gradient(35% 45% at 90% 20%, rgb(204 251 241 / 0.8) 0%, transparent 70%),
+    radial-gradient(30% 40% at 60% 90%, rgb(217 249 157 / 0.35) 0%, transparent 70%);
+}
+/* Faint dot grid that adds texture without noise. */
+@utility bg-dots {
+  background-image: radial-gradient(rgb(12 90 69 / 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+@utility glass {
+  background-color: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
 }
 
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-canvas text-ink antialiased;
+  }
+  ::selection {
+    @apply bg-brand-200 text-brand-950;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-500;
@@ -61,10 +194,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

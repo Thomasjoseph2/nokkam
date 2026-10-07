@@ -12,12 +12,17 @@ function NavLink({ item, mobile }: { item: NavItem; mobile: boolean }) {
       href={item.href}
       aria-current={active ? 'page' : undefined}
       className={cn(
-        'font-semibold transition-colors',
+        'relative font-semibold transition-colors',
         mobile
-          ? 'flex flex-1 items-center justify-center py-3 text-sm'
+          ? 'flex flex-1 items-center justify-center py-3.5 text-sm'
           : 'rounded-full px-4 py-2 text-sm',
-        active ? 'text-brand-700' : 'text-muted hover:text-ink',
-        active && !mobile && 'bg-brand-50',
+        active ? 'text-brand-700' : 'text-muted hover:text-brand-800',
+        active && !mobile && 'bg-gradient-brand-soft ring-1 ring-brand-200',
+        !active && !mobile && 'hover:bg-brand-50',
+        // Mobile: a gradient indicator bar on the active tab.
+        mobile &&
+          active &&
+          'before:absolute before:inset-x-6 before:top-0 before:h-0.5 before:rounded-full before:bg-gradient-brand',
       )}
     >
       {item.label}
@@ -44,7 +49,7 @@ export function DashboardBottomNav({ items }: { items: NavItem[] }) {
   return (
     <nav
       aria-label="Dashboard (mobile)"
-      className="fixed inset-x-0 bottom-0 z-30 flex border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden"
+      className="glass fixed inset-x-0 bottom-0 z-30 flex border-t border-brand-100 pb-[env(safe-area-inset-bottom)] sm:hidden"
     >
       {items.map((item) => (
         <NavLink key={item.href} item={item} mobile />

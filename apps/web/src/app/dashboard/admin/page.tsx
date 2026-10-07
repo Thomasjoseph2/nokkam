@@ -23,7 +23,7 @@ export default async function AdminHome() {
 
       <ul className="mt-6 grid gap-3 md:hidden">
         {users.map((u) => (
-          <li key={u.id} className="rounded-card bg-surface p-4 ring-1 ring-line/70">
+          <li key={u.id} className="rounded-card bg-surface p-4 shadow-card ring-1 ring-line/70">
             <p className="font-semibold">{u.displayName}</p>
             <p className="truncate text-sm text-muted">{u.email}</p>
             <p className="mt-2 text-xs text-ink-soft">
@@ -34,9 +34,9 @@ export default async function AdminHome() {
         ))}
       </ul>
 
-      <div className="mt-6 hidden overflow-x-auto rounded-card bg-surface ring-1 ring-line/70 md:block">
+      <div className="mt-6 hidden overflow-x-auto rounded-card bg-surface shadow-card ring-1 ring-line/70 md:block">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-line text-muted">
+          <thead className="border-b border-line bg-gradient-brand-soft text-brand-800">
             <tr>
               <th scope="col" className="px-4 py-3 font-medium">
                 Name
@@ -60,7 +60,10 @@ export default async function AdminHome() {
           </thead>
           <tbody>
             {users.map((u) => (
-              <tr key={u.id} className="border-b border-line/60 last:border-0">
+              <tr
+                key={u.id}
+                className="border-b border-line/60 transition-colors last:border-0 hover:bg-brand-50/60"
+              >
                 <td className="px-4 py-3 font-medium">{u.displayName}</td>
                 <td className="px-4 py-3">{u.email}</td>
                 <td className="px-4 py-3">{u.roles.join(', ')}</td>

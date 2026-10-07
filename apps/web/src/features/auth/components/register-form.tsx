@@ -11,6 +11,7 @@ import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/components/ui/cn';
 import { FormField } from '@/components/ui/form-field';
+import { CheckIcon, CompassIcon, StoreIcon } from '@/components/ui/icons';
 import { authApi } from '../api';
 import { describeError, type FieldErrors, zodFieldErrors } from '../form-errors';
 
@@ -19,11 +20,13 @@ const ACCOUNT_TYPES = [
     value: RegistrableAccountType.TESTER,
     title: 'I want to try places',
     body: 'Join campaigns & get offers',
+    icon: CompassIcon,
   },
   {
     value: RegistrableAccountType.BUSINESS_OWNER,
     title: 'I run a business',
     body: 'Create campaigns & get feedback',
+    icon: StoreIcon,
   },
 ] as const;
 
@@ -72,10 +75,10 @@ export function RegisterForm({ initialType }: { initialType: RegistrableAccountT
             <label
               key={type.value}
               className={cn(
-                'cursor-pointer rounded-xl p-3 ring-1 transition has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-500',
+                'relative cursor-pointer rounded-2xl p-3.5 ring-1 transition duration-200 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-500',
                 accountType === type.value
-                  ? 'bg-brand-50 ring-brand-600'
-                  : 'bg-surface ring-line hover:bg-canvas',
+                  ? 'bg-gradient-brand-soft shadow-card ring-2 ring-brand-500'
+                  : 'bg-surface/70 ring-line hover:bg-surface hover:ring-brand-300',
               )}
             >
               <input
@@ -86,6 +89,25 @@ export function RegisterForm({ initialType }: { initialType: RegistrableAccountT
                 onChange={() => setAccountType(type.value)}
                 className="sr-only"
               />
+              <span
+                aria-hidden
+                className={cn(
+                  'mb-2.5 grid size-9 place-items-center rounded-xl text-lg transition-colors',
+                  accountType === type.value
+                    ? 'bg-gradient-brand text-white shadow-glow'
+                    : 'bg-brand-50 text-brand-700',
+                )}
+              >
+                <type.icon />
+              </span>
+              {accountType === type.value ? (
+                <span
+                  aria-hidden
+                  className="absolute top-3 right-3 grid size-5 place-items-center rounded-full bg-brand-600 text-xs text-white"
+                >
+                  <CheckIcon strokeWidth={3} />
+                </span>
+              ) : null}
               <span className="block text-sm font-semibold">{type.title}</span>
               <span className="mt-0.5 block text-xs text-muted">{type.body}</span>
             </label>

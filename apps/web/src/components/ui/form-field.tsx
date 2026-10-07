@@ -23,9 +23,10 @@ export function FormField({ label, error, hint, className, id, ...props }: FormF
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}
         className={cn(
-          'h-12 rounded-xl bg-surface px-4 text-base text-ink ring-1 ring-line transition',
-          'placeholder:text-muted/70 focus:ring-2 focus:ring-brand-500 focus:outline-none',
-          error && 'ring-danger-600',
+          'h-12 rounded-xl bg-canvas/60 px-4 text-base text-ink ring-1 ring-line transition duration-200',
+          'placeholder:text-muted/70 hover:ring-brand-300 focus:bg-surface focus:ring-2 focus:ring-brand-500',
+          'focus:shadow-[0_0_0_6px_rgb(22_176_126/0.12)] focus:outline-none',
+          error && 'ring-danger-600 hover:ring-danger-600',
         )}
         {...props}
       />
